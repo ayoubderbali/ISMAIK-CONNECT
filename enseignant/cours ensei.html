@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace de cours: enseignants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 70px 1fr auto;
+        }
+
+        .top-bar {
+            background-color: #6a5acd;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            grid-row: 1;
+            grid-column: 1 / -1;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar h1 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .back-arrow {
+            display: flex;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .back-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .back-arrow img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        .main-content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            grid-column: 2;
+        }
+
+        .search-bar {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .image-container {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-left: 1px solid #ddd;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                grid-template-columns: 70px 1fr;
+            }
+            .image-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+                padding-left: 0;
+            }
+            .top-bar {
+                padding: 10px 15px;
+            }
+            .top-bar h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar avec flèche et titre -->
+    <div class="top-bar">
+        <a href="service ensei.html" class="back-arrow">
+            <img src="../icon/chevron-gauche.png" alt="back-arrow">
+        </a>
+        
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher...">
+        </div>
+
+        <div class="container">
+            <h1>Espace de cours:enseignants</h1>
+            
+            <div class="form-group">
+                <select id="section-select">
+                    <option value="" disabled selected>Choisir une section.</option>
+                    <option value="isi">ISI (Informatique et Systèmes d'Information)</option>
+                    <option value="si">SI (Sciences de l'Ingénieur)</option>
+                    <option value="ma">MA (Mathématiques Appliquées)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select id="niveau-select">
+                    <option value="" disabled selected>Choisissez d'abord une section</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select id="matiere-select">
+                    <option value="" disabled selected>Choisissez d'abord un niveau</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="chapitre" placeholder="Nom du chapitre" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+            </div>
+
+            <div class="file-upload">
+                <input type="file" id="fileInput" hidden>
+                <div id="fileText">Téléchargez le fichier ici...</div>
+                <div id="fileSubtext" style="color: #888; font-size: 14px;">Upload file</div>
+            </div>
+
+            <button type="button" id="envoyer-btn">Envoyer</button>
+        </div>
+    </div>
+
+    <!-- Image à droite -->
+    <div class="image-container">
+        <img src="../image/815489.PNG" alt="Interface enseignant">
+    </div>
+
+    <script>
+        // Données des matières par section et niveau
+        const matieresData = {
+            "isi": {
+                "1": {
+                    nom: "1ère année ISI",
+                    matieres: [
+                        { nom: "Algorithmique et programmation" },
+                        { nom: "Architecture des ordinateurs" },
+                        { nom: "Mathématiques discrètes" },
+                        { nom: "Systèmes d'exploitation" },
+                        { nom: "Bases de données" }
+                    ]
+                },
+                "2": {
+                    nom: "2ème année ISI",
+                    matieres: [
+                        { nom: "Conception des circuits logiques & Synthèse VHDL" },
+                        { nom: "Système sur puce (SoC) & Technologies d'interfaçage" },
+                        { nom: "Programmation web" },
+                        { nom: "Programmation mobile" },
+                        { nom: "Tests de logiciels (Certification ISTQB)" }
+                    ]
+                },
+                "3": {
+                    nom: "3ème année ISI",
+                    matieres: [
+                        { nom: "Intelligence Artificielle" },
+                        { nom: "Big Data" },
+                        { nom: "Cloud Computing" },
+                        { nom: "Réseaux avancés" }
+                    ]
+                }
+            },
+            "si": {
+                "1": {
+                    nom: "1ère année SI",
+                    matieres: [
+                        { nom: "Introduction aux SI" },
+                        { nom: "Bases de données" },
+                        { nom: "Réseaux informatiques" },
+                        { nom: "Programmation Java" }
+                    ]
+                },
+                "2": {
+                    nom: "2ème année SI",
+                    matieres: [
+                        { nom: "Analyse et conception des SI" },
+                        { nom: "Développement d'applications d'entreprise" },
+                        { nom: "Bases de données avancées" },
+                        { nom: "Réseaux et sécurité" }
+                    ]
+                },
+                "3": {
+                    nom: "3ème année SI",
+                    matieres: [
+                        { nom: "Business Intelligence" },
+                        { nom: "Gouvernance des SI" },
+                        { nom: "Cloud Computing" }
+                    ]
+                }
+            },
+            "ma": {
+                "1": {
+                    nom: "1ère année MA",
+                    matieres: [
+                        { nom: "Mathématiques Appliquées" },
+                        { nom: "Algorithmique" },
+                        { nom: "Bases de données" },
+                        { nom: "Programmation C" }
+                    ]
+                },
+                "2": {
+                    nom: "2ème année MA",
+                    matieres: [
+                        { nom: "Analyse numérique" },
+                        { nom: "Probabilités et statistiques" },
+                        { nom: "Recherche opérationnelle" },
+                        { nom: "Programmation Python" }
+                    ]
+                },
+                "3": {
+                    nom: "3ème année MA",
+                    matieres: [
+                        { nom: "Modélisation mathématique" },
+                        { nom: "Théorie des graphes" },
+                        { nom: "Data Science" }
+                    ]
+                }
+            }
+        };
+        const sectionSelect = document.getElementById('section-select');
+        const niveauSelect = document.getElementById('niveau-select');
+        const matiereSelect = document.getElementById('matiere-select');
+        const chapitreInput = document.getElementById('chapitre');
+        const fileInput = document.getElementById('fileInput');
+        const envoyerBtn = document.getElementById('envoyer-btn');
+
+        // Gestion du changement de section
+        sectionSelect.addEventListener('change', function() {
+            // Réinitialiser les sélections suivantes
+            niveauSelect.innerHTML = '<option value="" disabled selected>Choisissez un niveau</option>';
+            matiereSelect.innerHTML = '<option value="" disabled selected>Choisissez d\'abord un niveau</option>';
+            
+            const section = this.value;
+            if (!section) return;
+
+            // Ajouter les niveaux disponibles selon la section
+            if (section === 'isi' || section === 'si' || section === 'ma') {
+                for (let i = 1; i <= 3; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = `Niveau ${i}`;
+                    niveauSelect.appendChild(option);
+                }
+            }
+        });
+
+        // Gestion du changement de niveau
+        niveauSelect.addEventListener('change', function() {
+            // Réinitialiser la sélection de matière
+            matiereSelect.innerHTML = '<option value="" disabled selected>Choisissez une matière</option>';
+            
+            const section = sectionSelect.value;
+            const niveau = this.value;
+            if (!section || !niveau) return;
+
+            // Ajouter les matières correspondantes
+            const matieres = matieresData[section][niveau].matieres;
+            matieres.forEach(matiere => {
+                const option = document.createElement('option');
+                option.value = matiere.nom.toLowerCase().replace(/\s+/g, '-');
+                option.textContent = matiere.nom;
+                matiereSelect.appendChild(option);
+            });
+        });
+        document.querySelector('.file-upload').addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            const fileText = document.getElementById('fileText');
+            const fileSubtext = document.getElementById('fileSubtext');
+            
+            if(e.target.files.length > 0) {
+                fileText.textContent = e.target.files[0].name;
+                fileSubtext.textContent = 'Cliquez pour modifier';
+            } else {
+                fileText.textContent = 'Téléchargez le fichier ici...';
+                fileSubtext.textContent = 'Upload file';
+            }
+        });
+
+        // Gestion de l'envoi
+        envoyerBtn.addEventListener('click', function() {
+            const section = sectionSelect.value;
+            const niveau = niveauSelect.value;
+            const matiere = matiereSelect.value;
+            const chapitre = chapitreInput.value;
+            const fichier = fileInput.files[0] ? fileInput.files[0].name : null;
+
+            // Validation
+            if (!section || !niveau || !matiere || !chapitre) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+
+            // Créer l'objet à enregistrer
+            const coursData = {
+                section: sectionSelect.options[sectionSelect.selectedIndex].text,
+                niveau: niveauSelect.options[niveauSelect.selectedIndex].text,
+                matiere: matiereSelect.options[matiereSelect.selectedIndex].text,
+                chapitre,
+                fichier,
+                date: new Date().toLocaleString()
+            };
+             // Enregistrement dans localStorage (simulation)
+             let enregistrements = JSON.parse(localStorage.getItem('coursEnregistres') || '[]');
+             enregistrements.push(coursData);
+             localStorage.setItem('coursEnregistres', JSON.stringify(enregistrements));
+ 
+             // Affichage des données enregistrées (pour vérification)
+             console.log('Données enregistrées:', coursData);
+             alert(`Cours enregistré avec succès pour:
+ ${coursData.section} - ${coursData.niveau}
+ Matière: ${coursData.matiere}
+ Chapitre: ${coursData.chapitre}`);
+ 
+             // Réinitialisation du formulaire (optionnelle)
+             sectionSelect.value = '';
+             niveauSelect.innerHTML = '<option value="" disabled selected>Choisissez d\'abord une section</option>';
+             matiereSelect.innerHTML = '<option value="" disabled selected>Choisissez d\'abord un niveau</option>';
+             chapitreInput.value = '';
+             fileInput.value = '';
+             document.getElementById('fileText').textContent = 'Téléchargez le fichier ici...';
+             document.getElementById('fileSubtext').textContent = 'Upload file';
+         });
+     </script>
+</body>
+</html>

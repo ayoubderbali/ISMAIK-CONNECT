@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISMAI-CONNECT ADMIN ZONE</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding-left: 70px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 70px;
+      background-color: #6a5acd;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    .profile img {
+      width: 30px;
+      height: 30px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .search-bar {
+      width: 300px;
+      margin-bottom: 10px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+
+    .header-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    .formation-list {
+      display: grid;
+      grid-template-columns: repeat(2, 300px);
+      gap: 20px;
+      justify-content: center;
+      margin: 30px auto 0;
+    }
+
+    .formation-item {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .add-circle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: #6a5acd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .add-circle:hover {
+      transform: scale(1.1);
+    }
+
+    .add-circle::before {
+      content: "+";
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      max-width: 90%;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #6a5acd;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .sidebar .profile1 {
+      width: 35px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    /* Style du bouton de suppression */
+    .delete-btn {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+      font-size: 14px;
+    }
+
+    .delete-btn:hover {
+      background-color: #cc0000;
+    }
+    .pro{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="profile">
+        <a href="../index/profile.html"><img src="../image/image.jpg" class="pro" alt="Profile Icon"></a>
+        <a href="index admin.html"><img src="../icon/maison.png" alt=" mess Icon"></a>
+        <a href="message admin.html"><img src="../icon/enveloppe.png" alt=" mess Icon"></a>
+        <a href="#"><img src="../icon/salle-de-classe.png" alt="Formation"></a>
+        <a href="voir note 1.html"><img src=../icon/acces-autorise.png alt="access"></a>
+        <a href="note admin.html"><img src="../icon/editer.png" alt="note Icon"></a>
+        <a href="accord attestation.html" id="home"><img src="../icon/accord-de-contrat.png" alt="Notes"></a>
+        <a href="about admin.html"><img src="../icon/exclamation.png" alt="about Icon"></a>
+        <a href="../index.html"><img src="../icon/logout.png" alt=""></a>
+    </div>
+</div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <header>
+      <div class="header-text">
+        <div class="search-bar">
+          <input type="text" placeholder="Rechercher..." />
+        </div>
+        <h1>ISMAI-CONNECT ADMIN ZONE</h1>
+      </div>
+    </header>
+
+    <p>
+      Nous pouvons aider à faciliter les formalités administratives et<br />
+      les services administratifs pour les étudiants.
+    </p>
+
+    <div class="formation-list" id="formationList"></div>
+  </div>
+
+  <!-- Cercle d'ajout -->
+  <div class="add-circle" title="Ajouter une formation" id="addCircle"></div>
+
+  <!-- Modal pour ajouter une formation -->
+  <div class="modal" id="addFormationModal">
+    <div class="modal-content">
+      <h2>Ajouter une nouvelle formation</h2>
+      <form id="formationForm">
+        <div class="form-group">
+          <label for="formationName">Nom de la formation</label>
+          <input type="text" id="formationName" required />
+        </div>
+        <div class="form-group">
+          <label for="formationUrl">URL de la formation</label>
+          <input type="url" id="formationUrl" required />
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancelBtn">Annuler</button>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const initialFormations = [
+      { 
+        name: "Formation en intelligence artificielle", 
+        url: "https://www.coursera.org/learn/introduction-to-ai" 
+      },
+      { 
+        name: "Formation professionnelle en informatique", 
+        url: "" 
+      },
+      { 
+        name: "Formation en cybersécurité", 
+        url: "https://www.coursera.org/professional-certificates/google-cybersecurity" 
+      },
+      { 
+        name: "Formation en base de données", 
+        url: "https://www.coursera.org/professional-certificates/meta-database-engineer?sortBy=BEST_MATCH" 
+      },
+      { 
+        name: "Formation en Figma et ui/ux", 
+        url: "https://www.coursera.org/learn/packt-figma-for-ui-ux-master-web-design-in-figma-essgs" 
+      },
+      { 
+        name: "Formation en famille adobe", 
+        url: "https://www.coursera.org/professional-certificates/adobe-graphic-designer" 
+      }
+    ];
+
+    // Initialisation du localStorage
+    let formations = JSON.parse(localStorage.getItem('formations')) || initialFormations;
+    localStorage.setItem('formations', JSON.stringify(formations));
+
+    // Rendu des formations avec bouton de suppression
+    function renderFormations() {
+      const formationList = document.getElementById('formationList');
+      formationList.innerHTML = '';
+      
+      formations.forEach((formation, index) => {
+        const div = document.createElement('div');
+        div.className = 'formation-item';
+        div.textContent = formation.name;
+
+        if(formation.url) {
+          const link = document.createElement('a');
+          link.href = formation.url;
+          link.textContent = ' (Lien)';
+          link.target = '_blank';
+          link.style.color = '#6a5acd';
+          link.style.marginLeft = '5px';
+          div.appendChild(link);
+        }
+
+        // Bouton de suppression
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.textContent = 'Supprimer';
+        deleteBtn.onclick = () => {
+          if(confirm(`Voulez-vous vraiment supprimer "${formation.name}" ?`)) {
+            formations.splice(index, 1);
+            localStorage.setItem('formations', JSON.stringify(formations));
+            renderFormations();
+          }
+        };
+        
+        div.appendChild(deleteBtn);
+        formationList.appendChild(div);
+      });
+    }
+
+    // Synchronisation entre onglets
+    window.addEventListener('storage', (e) => {
+      if(e.key === 'formations') {
+        formations = JSON.parse(e.newValue);
+        renderFormations();
+      }
+    });
+
+    // Gestion de l'ajout
+    document.addEventListener('DOMContentLoaded', renderFormations);
+    
+    const addCircle = document.getElementById("addCircle");
+    const modal = document.getElementById("addFormationModal");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const formationForm = document.getElementById("formationForm");
+
+    addCircle.addEventListener("click", () => modal.style.display = "flex");
+    cancelBtn.addEventListener("click", () => modal.style.display = "none");
+    modal.addEventListener("click", e => e.target === modal && (modal.style.display = "none"));
+
+    formationForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("formationName").value;
+      const url = document.getElementById("formationUrl").value;
+
+      formations.push({ name, url });
+      localStorage.setItem('formations', JSON.stringify(formations));
+      renderFormations();
+      
+      modal.style.display = "none";
+      formationForm.reset();
+      alert(`Formation "${name}" ajoutée avec succès!`);
+    });
+  </script>
+</body>
+</html>
